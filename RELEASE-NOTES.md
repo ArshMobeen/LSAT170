@@ -9,4 +9,5 @@ This personal build is ad-hoc signed, not Apple-notarized. On first launch, macO
 
 Includes all four Reset Room modes, fullscreen focus, daily journals and study logs, motivation library, personal letters from Arsh, vision board, backup export/restore, and the custom navy-and-silver app icon. Saved records persist locally after closing; unfinished focus sessions reopen paused.
 
-Download `INSTALL-ON-MAC.txt` for instructions. `SHA256SUMS.txt` contains the installer checksums. The ZIP files are alternative application packages, not source code.
+Download `INSTALL-ON-MAC.txt` for instructions. `SHA256SUMS.txt` contains the installer checksums.
+

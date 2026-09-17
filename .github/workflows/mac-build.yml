@@ -64,8 +64,13 @@ jobs:
         run: |
           cp INSTALL-ON-MAC.txt release/
           cd release
-          sha256sum *.dmg *.zip > SHA256SUMS.txt
+          sha256sum *.dmg > SHA256SUMS.txt
           cd ..
           VERSION=$(node -p "require('./package.json').version")
           TAG="v${VERSION}-mac-${GITHUB_RUN_NUMBER}"
-          gh release create "$TAG" release/*.dmg release/*.zip release/INSTALL-ON-MAC.txt release/SHA256SUMS.txt --target "$GITHUB_SHA" --title "Angel's 170 ${VERSION} for Mac" --notes-file RELEASE-NOTES.md
+          gh release create "$TAG" --draft --target "$GITHUB_SHA" --title "Angel's 170 ${VERSION} for Mac" --notes-file RELEASE-NOTES.md
+          for asset in release/*.dmg release/INSTALL-ON-MAC.txt release/SHA256SUMS.txt; do
+            gh release upload "$TAG" "$asset"
+          done
+          gh release edit "$TAG" --draft=false
+
