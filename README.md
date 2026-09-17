@@ -50,5 +50,6 @@ Focus Room includes native fullscreen with a distraction-free fallback and keybo
 
 ## Mac build kit and persistent storage
 
-See MAC-INSTALL.md for exact storage locations, transfer instructions, local Mac builds and the included GitHub Actions workflow. Source version 2.2.0 adds timer recovery; previously packaged Windows 2.1.0 does not include that change. Native Mac packaging is pending access to a macOS build environment.
+See MAC-INSTALL.md for exact storage locations, transfer instructions, local Mac builds and the included GitHub Actions workflow. Source version 2.2.0 adds timer recovery; previously packaged Windows 2.1.0 does not include that change. Native Mac installers are built and tested using GitHub Actions. Download the app from https://github.com/ArshMobeen/LSAT170/releases/latest. Requires macOS 13 or newer; see INSTALL-ON-MAC.txt for installation and first-open approval.
+
 

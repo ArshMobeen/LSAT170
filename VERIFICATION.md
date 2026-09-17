@@ -39,3 +39,11 @@ Nine automated tests passed and production renderer built. Focus recovery preser
 
 Browser persistence verified: a running focus session reloaded at 40 seconds, paused; a completed 1-minute log survived another reload; the timer stayed reset after saving. Temporary verification log removed through the UI. Mac configuration passed electron-builder schema validation; workflow YAML parsed; build kit ZIP includes the workflow and build script.
 
+
+## Version 2.2.1 Mac release
+
+Custom 1024px navy/silver monogram app icon added, with native package and browser icon wiring.
+GitHub run: https://github.com/ArshMobeen/LSAT170/actions/runs/35245529844
+Source commit: cba507e274ec296b56cd8bdd3fb612bac3383b85
+Both macos-15 ARM64 and macos-15-intel x64 passed unit tests, production builds, DMG/ZIP packaging, ad-hoc signature verification and native packaged-app persistence tests. The native test launches the actual packaged executable, records a study log and journal, starts a focus timer, closes the process and relaunches to check saved data and paused recovery.
+Apple Developer signing/notarization is not configured. First-open approval may be required. Minimum macOS version is 13. Actual hardware-specific graphics performance and Gatekeeper behavior still require recipient-device confirmation.

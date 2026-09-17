@@ -1,6 +1,6 @@
 # Angel's 170 for MacBook
 
-This is a source build kit, not a finished Mac installer. Build it on macOS to produce DMG installers and application ZIPs for Apple Silicon and Intel. Building needs internet and Node.js 22 or newer.
+For the complete app, use the DMG installers from https://github.com/ArshMobeen/LSAT170/releases/latest. Choose arm64 for an Apple Silicon MacBook or x64 for Intel. Requires macOS 13 Ventura or newer. Installation does not need Node.js or developer tools. See INSTALL-ON-MAC.txt for the first-open steps. The instructions below are only for rebuilding from source.
 
 ## Build on a Mac
 
@@ -15,7 +15,7 @@ The build script uses local ad-hoc signing. It does not provide an Apple Develop
 
 ## Build using GitHub
 
-The included `.github/workflows/mac-build.yml` builds the same installers on a macOS runner. Put the source in your chosen repository, open Actions > Build Mac installers > Run workflow, then download the resulting artifact. No repository has been created or uploaded by this kit. Usage may count toward the repository's Actions allowance.
+The included `.github/workflows/mac-build.yml` builds the same installers on a macOS runner. Put the source in your chosen repository, open Actions > Build Mac installers > Run workflow, then download the resulting artifact. The source repository is https://github.com/ArshMobeen/LSAT170. A push to main or codex/mac-release triggers native ARM64 and Intel builds, signature verification, packaged-app persistence tests and a downloadable GitHub Release. Usage may count toward the repository's Actions allowance.
 
 ## Your saved information
 
@@ -23,9 +23,9 @@ Study logs, journal writing, tomorrow's plans, scores, daily plans, question rev
 
 Desktop storage is Chromium localStorage in the app's user profile, normally:
 
-- Mac: `~/Library/Application Support/Angels 170/Local Storage/leveldb`
-- Windows: `%APPDATA%\Angels 170\Local Storage\leveldb`
-- Development (`npm run desktop`) may use `angels-170` as its profile name. Browser previews store data in that browser's site storage for the preview address.
+- Mac: `~/Library/Application Support/angels-170/Local Storage/leveldb`
+- Windows: `%APPDATA%\angels-170\Local Storage\leveldb`
+- The profile name is `angels-170`, from the package name; the visible app name is Angels 170. Browser previews store data in that browser's site storage for the preview address.
 
 The main localStorage key is `angel170`. An unfinished focus session and its intention use `angel170-focus`; they checkpoint every second and on normal page exit. Reopening restores the timer paused, so time away is not counted as study time. An abrupt power loss can lose the most recent checkpoint. Use Finish & save to add recovered minutes to the study log.
 
@@ -35,6 +35,7 @@ Deleting the profile, clearing browser site data, disk failure or changing compu
 
 ## Verification on the Mac
 
-Before relying on the app, log a short session, write a journal sentence, quit with Command-Q and reopen. Confirm both are present. Also check fullscreen, color flow, backup export/restore and the timer's paused recovery. Native Mac execution has not been tested from the Windows development machine.
+Before relying on the app, log a short session, write a journal sentence, quit with Command-Q and reopen. Confirm both are present. Also check fullscreen, color flow, backup export/restore and the timer's paused recovery. The GitHub workflow exercises native packaged execution on both Apple Silicon and Intel Mac runners before publishing a release.
 
 References: https://www.electronjs.org/docs/latest/api/app and https://www.electronjs.org/docs/latest/tutorial/code-signing
+
