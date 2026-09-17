@@ -49,3 +49,6 @@ Both macos-15 ARM64 and macos-15-intel x64 passed unit tests, production builds,
 Apple Developer signing/notarization is not configured. First-open approval may be required. Minimum macOS version is 13. Actual hardware-specific graphics performance and Gatekeeper behavior still require recipient-device confirmation.
 
 Release publishing note: both native Mac jobs succeeded. The subsequent bulk upload job stalled and was cancelled after the verified artifacts were downloaded locally. Local artifact SHA-256 values matched GitHub: ARM64 efbfe84b286522d5e1bbaca13a571035bdbd1201bc4d6837b25d6bdcb558fdc6; x64 741fd0b9bb06afdce78d4d90f0bf5158688d887d5d3f25bd0934fc6da60ea1a8. Native DMGs were extracted unchanged. Publishing was retried directly; future workflows upload DMGs sequentially. Application ZIPs remain in Actions artifacts.
+
+Public release: https://github.com/ArshMobeen/LSAT170/releases/tag/v2.2.1-mac-1 . Apple Silicon DMG published and server digest verified against the local file. Intel DMG is complete and verified locally at release/Angels-170-2.2.1-x64.dmg, but its public upload returned HTTP 500 and then timed out on retry. Release notes disclose that limitation. Both native Mac build/test jobs passed.
+
