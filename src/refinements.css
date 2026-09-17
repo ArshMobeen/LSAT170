@@ -1,0 +1,564 @@
+/* A clearer shell, a quieter focus room, and room to play. */
+.sidebar {
+  width: 228px;
+  padding: 30px 16px 18px;
+  background:
+    radial-gradient(ellipse at 0 0, #293e5840, transparent 65%),
+    linear-gradient(180deg, #112035, #0c1727);
+  border-right: 1px solid #8dabc91a;
+  box-shadow: 12px 0 40px #00000008;
+}
+.brand {
+  padding: 0 12px;
+  font-size: 25px;
+  gap: 12px;
+}
+.brand small {
+  font-size: 5px;
+  letter-spacing: 1.15px;
+  color: #70849c;
+}
+.chapter-nav {
+  margin-top: 27px !important;
+  gap: 5px !important;
+}
+.nav-group-title {
+  font-size: 9px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: #5e7897;
+  padding: 13px 15px 8px;
+}
+.nav-group-title:not(:first-child) {
+  margin-top: 13px;
+  border-top: 1px solid #aec7e00b;
+  padding-top: 22px;
+}
+.chapter-nav button {
+  position: relative;
+  height: 43px;
+  padding: 8px 11px !important;
+  font-size: 12px !important;
+  gap: 11px !important;
+  border: 0 !important;
+  border-radius: 10px;
+  box-shadow: none !important;
+  background: transparent !important;
+  isolation: isolate;
+  text-align: left;
+  justify-content: flex-start;
+  color: #879db8 !important;
+  filter: none;
+}
+.chapter-nav button:hover {
+  color: #d9e5f4 !important;
+}
+.chapter-nav button.active {
+  color: #eef3fb !important;
+}
+.nav-active-surface {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, #345275b0, #273c5655);
+  border: 1px solid #afc9ec30;
+  border-radius: 10px;
+  box-shadow:
+    inset 0 1px 0 #e5f0ff14,
+    0 5px 12px #0001;
+}
+.nav-icon {
+  display: grid;
+  place-items: center;
+  width: 29px;
+  height: 29px;
+  border-radius: 8px;
+  color: inherit;
+}
+.chapter-nav .active .nav-icon {
+  background: #c7d9ee0c;
+}
+.nav-title {
+  white-space: nowrap;
+  font-weight: 450;
+  letter-spacing: 0.05px;
+}
+.nav-current-dot {
+  margin-left: auto;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #c6d6ec;
+  box-shadow: 0 0 9px #b9d2ee6b;
+}
+.sidebar-mantra {
+  padding: 22px 14px;
+  margin-top: auto;
+}
+.sidebar-mantra p {
+  font-size: 11px;
+}
+.sidebar-mantra p em {
+  font-size: 14px;
+}
+.sidebar-mantra > span {
+  display: none;
+}
+.sidebar .settings {
+  padding: 10px 14px;
+  font-size: 10px;
+  gap: 12px;
+  margin-top: 7px;
+}
+.sidebar .profile {
+  padding: 15px 9px 0;
+}
+.profile > div:nth-child(2) {
+  font-size: 11px;
+}
+.profile small {
+  font-size: 8px;
+}
+.avatar {
+  background: linear-gradient(125deg, #506783, #263b54);
+  border-color: #9bb6d34a;
+}
+main {
+  margin-left: 228px;
+}
+.header-right {
+  letter-spacing: 1px;
+}
+.page-heading > .eyebrow {
+  display: none;
+}
+.page-heading h1 {
+  font-size: 28px;
+}
+.page-heading > div > p {
+  display: none;
+}
+.page-heading {
+  margin-bottom: 26px;
+}
+.page-heading .eyebrow {
+  font-size: 7px;
+  color: #6f89a7;
+}
+.reset-top .segmented {
+  flex-wrap: wrap;
+}
+.reset-stage.flow {
+  background: #010205;
+}
+.flow-hidden {
+  display: none !important;
+}
+.reset-stage.flow .reset-stage-caption {
+  opacity: 0.8;
+}
+.reset-stage.flow .reset-stage-caption h2 {
+  font-size: 18px;
+}
+.flow-tools {
+  background: #070b15d4;
+  border-color: #74879944;
+}
+.reset-controls .sound-toggle:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.focus-sanctuary {
+  position: relative;
+  min-height: 540px;
+  padding: 28px 32px;
+  background: radial-gradient(ellipse at 50% 44%, #263c5655, #0c1b2e 65%);
+  border: 1px solid #9db7d427;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+}
+.focus-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.focus-brand {
+  font: italic 34px Georgia;
+  color: #8ca3c0;
+}
+.focus-brand > span {
+  font-size: 12px;
+  position: relative;
+  top: -20px;
+}
+.fullscreen-control {
+  font-size: 11px;
+  color: #a9bbd1;
+  padding: 10px 13px;
+  border: 1px solid #9db4cd2b;
+  border-radius: 25px;
+  background: #1b2e4455;
+}
+.focus-core {
+  margin: auto;
+  text-align: center;
+  padding: 38px 0;
+  max-width: 900px;
+  width: 100%;
+}
+.focus-core > .eyebrow {
+  font-size: 8px;
+  letter-spacing: 3px;
+  color: #6f89a7;
+}
+.focus-intention {
+  display: block;
+  margin-top: 25px;
+}
+.focus-intention input {
+  font: italic 28px Georgia;
+  text-align: center;
+  border: 0;
+  background: transparent;
+  color: #b8c7da;
+  padding: 10px 20px;
+  box-shadow: none;
+  width: 100%;
+}
+.focus-intention input:focus {
+  background: #ffffff04;
+  box-shadow: 0 1px 0 #70869f33;
+}
+.focus-clock {
+  font:
+    400 clamp(40px, 6.5vw, 96px)/1.2 Manrope,
+    sans-serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -4px;
+  margin: 26px 0 22px;
+  color: #e0e7f1;
+}
+.focus-clock > span {
+  color: #526883;
+  padding: 0 7px;
+}
+.focus-clock.is-running {
+  color: #edf2f9;
+  text-shadow: 0 0 50px #b2d4ff15;
+}
+.focus-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #7f96b0;
+  font-size: 11px;
+  min-height: 18px;
+}
+.focus-core .button-row {
+  margin-top: 32px;
+}
+.focus-core .primary,
+.focus-core .secondary {
+  padding: 13px 22px;
+  font-size: 12px;
+  min-width: 155px;
+}
+.focus-bottom {
+  display: flex;
+  justify-content: space-between;
+  color: #57708c;
+  font-size: 9px;
+  gap: 20px;
+  line-height: 1.6;
+}
+.focus-fullscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  border: 0;
+  border-radius: 0;
+  min-height: 100dvh;
+  padding: 30px 45px;
+  background: radial-gradient(
+    ellipse at 50% 42%,
+    #233953,
+    #0b192b 52%,
+    #070f1c 100%
+  );
+}
+.focus-fullscreen .focus-clock {
+  font-size: clamp(58px, 12vw, 170px);
+  letter-spacing: -7px;
+}
+.focus-fullscreen .focus-intention input {
+  font-size: clamp(24px, 3vw, 39px);
+}
+.focus-fullscreen .focus-core {
+  padding: 30px;
+}
+.focus-fullscreen .focus-state {
+  font-size: 13px;
+}
+.focus-fullscreen .focus-bottom {
+  font-size: 10px;
+}
+.focus-fullscreen .focus-core > .eyebrow {
+  font-size: 9px;
+}
+.focus-fullscreen .fullscreen-control {
+  border-color: #bbc8da35;
+}
+.focus-fullscreen ~ .toast {
+  z-index: 170;
+}
+.toast {
+  z-index: 170;
+}
+.focus-sanctuary:focus-visible {
+  outline: 2px solid #9db4cd;
+  outline-offset: -5px;
+}
+.radix-overlay {
+  z-index: 160;
+}
+.stuck-dialog,
+.letter-dialog {
+  z-index: 161;
+}
+.reset-stage canvas {
+  outline: none;
+}
+.reset-stage.flow canvas {
+  cursor: crosshair;
+}
+.library-intro {
+  padding-top: 15px;
+}
+.library-intro h2 {
+  font-size: 42px;
+}
+.notes-heading {
+  padding-top: 20px;
+}
+.settings-panel .replay {
+  font-size: 11px;
+}
+.calm-motion .page {
+  filter: none !important;
+}
+.review-entry {
+  overflow-wrap: anywhere;
+}
+.letter-body {
+  overflow-wrap: anywhere;
+}
+@media (max-height: 850px) and (min-width: 851px) {
+  .sidebar {
+    padding-top: 23px;
+  }
+  .chapter-nav {
+    margin-top: 19px !important;
+  }
+  .chapter-nav button {
+    height: 38px;
+  }
+  .nav-group-title {
+    padding-top: 8px;
+    padding-bottom: 6px;
+    font-size: 8px;
+  }
+  .nav-group-title:not(:first-child) {
+    margin-top: 8px;
+    padding-top: 13px;
+  }
+  .sidebar .settings {
+    margin-top: auto;
+  }
+  .sidebar-mantra {
+    display: none;
+  }
+}
+@media (max-width: 1150px) {
+  .sidebar {
+    width: 205px;
+    padding-inline: 11px;
+  }
+  .brand {
+    font-size: 23px;
+  }
+  main {
+    margin-left: 205px;
+  }
+  .chapter-nav button {
+    font-size: 11px !important;
+    gap: 8px !important;
+  }
+  .focus-sanctuary {
+    padding: 24px;
+  }
+  .focus-clock {
+    font-size: 68px;
+    letter-spacing: -3px;
+  }
+  .focus-intention input {
+    font-size: 24px;
+  }
+}
+@media (max-width: 850px) {
+  .sidebar {
+    width: 72px;
+    padding: 24px 10px;
+  }
+  .brand {
+    padding: 0 5px;
+  }
+  .chapter-nav {
+    margin-top: 5px !important;
+  }
+  .nav-group-title {
+    font-size: 0;
+    height: 15px;
+    padding: 0;
+  }
+  .nav-group-title:not(:first-child) {
+    margin-top: 10px;
+    height: 15px;
+    padding: 0;
+  }
+  .chapter-nav .nav-title,
+  .nav-current-dot {
+    display: none;
+  }
+  .chapter-nav button {
+    padding: 8px !important;
+    justify-content: center;
+    height: 44px;
+  }
+  .nav-icon {
+    width: 28px;
+  }
+  .sidebar .settings {
+    font-size: 0;
+    padding: 13px;
+    gap: 0;
+    margin-top: auto;
+  }
+  .sidebar .settings svg {
+    width: 18px;
+  }
+  main {
+    margin-left: 72px;
+  }
+  .focus-clock {
+    font-size: clamp(33px, 7vw, 65px);
+    letter-spacing: -2px;
+  }
+  .focus-clock > span {
+    padding: 0 3px;
+  }
+  .focus-sanctuary {
+    min-height: 490px;
+    padding: 20px;
+  }
+  .focus-intention input {
+    font-size: 21px;
+  }
+  .focus-core .button-row {
+    gap: 10px;
+  }
+  .focus-core .primary,
+  .focus-core .secondary {
+    font-size: 10px;
+    min-width: 120px;
+    padding: 12px;
+  }
+  .focus-bottom {
+    font-size: 8px;
+  }
+  .focus-fullscreen {
+    padding: 20px;
+    min-height: 100dvh;
+  }
+  .focus-fullscreen .focus-core {
+    padding: 15px;
+  }
+  .focus-fullscreen .focus-clock {
+    letter-spacing: -3px;
+  }
+  .reset-top > .segmented {
+    border-radius: 14px;
+  }
+  .reset-controls {
+    gap: 16px;
+  }
+  .page-heading h1 {
+    font-size: 25px;
+  }
+}
+@media (max-width: 560px) {
+  .reset-top .segmented {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 5px;
+  }
+  .reset-top .segmented button {
+    font-size: 10px;
+    padding: 10px;
+  }
+  .flow-tools {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+    border-radius: 15px;
+  }
+  .flow-tools button {
+    font-size: 9px;
+  }
+  .fullscreen-control {
+    font-size: 9px;
+    padding: 9px;
+  }
+  .focus-clock {
+    font-size: 36px;
+  }
+  .focus-intention input {
+    font-size: 19px;
+    padding-inline: 0;
+  }
+  .focus-state {
+    font-size: 9px;
+    line-height: 1.6;
+  }
+  .focus-bottom {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .focus-fullscreen .focus-clock {
+    font-size: 52px;
+  }
+  .focus-fullscreen .focus-bottom {
+    flex-direction: row;
+    font-size: 8px;
+  }
+  .focus-fullscreen .focus-intention input {
+    font-size: 23px;
+  }
+  .focus-core .primary,
+  .focus-core .secondary {
+    font-size: 10px;
+    min-width: 0;
+  }
+  .page-heading .primary {
+    font-size: 0;
+  }
+  .page-heading h1 {
+    font-size: 24px;
+  }
+  .library-intro h2 {
+    font-size: 32px;
+  }
+}

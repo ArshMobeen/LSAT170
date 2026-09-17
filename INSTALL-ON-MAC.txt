@@ -1,0 +1,27 @@
+ANGEL'S 170
+Made for Angel, with love from Arsh.
+
+INSTALL
+1. In Apple menu > About This Mac, look for Chip or Processor.
+   Apple M1/M2/M3/M4/M5 or newer: use the arm64 DMG.
+   Intel: use the x64 DMG.
+2. Open the DMG and drag Angels 170 into Applications.
+3. Eject the DMG. Open Angels 170 from Applications.
+
+Requires macOS 13 Ventura or newer. No Node.js, coding tools or account needed.
+
+FIRST OPEN
+This personal build is locally signed, but not Apple-notarized.
+If macOS says the developer cannot be verified, first try opening the app.
+Then go to System Settings > Privacy & Security > Open Anyway, and confirm Open.
+This approval is specific to this app. Do not turn off Mac security protection.
+Apple's guide: https://support.apple.com/en-us/102445
+
+YOUR DATA
+Journals, logged hours, scores, photos, notes and settings save automatically on
+this Mac. An unfinished focus timer reopens paused. Use Finish & save to log it.
+Settings & backup lets you export a backup or restore one from another device.
+The Reset Room's drawings and disposable vent writing are temporary unless saved.
+
+Use the app from Applications, not from inside the mounted DMG. Your saved data
+lives separately in your Mac's user profile and stays when the app closes.

@@ -1,0 +1,71 @@
+name: Build Mac installers
+on:
+  push:
+    branches: [main, codex/mac-release]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mac:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+            folder: mac-arm64
+          - runner: macos-15-intel
+            arch: x64
+            folder: mac
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+      - name: Build signed application and installers
+        run: npx electron-builder --mac dmg zip --${{ matrix.arch }} --publish never
+      - name: Verify application signature
+        run: codesign --verify --deep --strict "release/${{ matrix.folder }}/Angels 170.app"
+      - name: Verify packaged app and persistence on restart
+        env:
+          ANGEL_EXECUTABLE: release/${{ matrix.folder }}/Angels 170.app/Contents/MacOS/Angels 170
+        run: npm run test:desktop
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Angels-170-Mac-${{ matrix.arch }}
+          path: |
+            release/*.dmg
+            release/*.zip
+            release/mac-preview-*.png
+          if-no-files-found: error
+          retention-days: 14
+  release:
+    needs: mac
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: Angels-170-Mac-*
+          path: release
+          merge-multiple: true
+      - name: Publish downloadable Mac apps
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          cp INSTALL-ON-MAC.txt release/
+          cd release
+          sha256sum *.dmg *.zip > SHA256SUMS.txt
+          cd ..
+          VERSION=$(node -p "require('./package.json').version")
+          TAG="v${VERSION}-mac-${GITHUB_RUN_NUMBER}"
+          gh release create "$TAG" release/*.dmg release/*.zip release/INSTALL-ON-MAC.txt release/SHA256SUMS.txt --target "$GITHUB_SHA" --title "Angel's 170 ${VERSION} for Mac" --notes-file RELEASE-NOTES.md
