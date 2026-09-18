@@ -17,6 +17,34 @@ export function totals(logs, date) {
       unfocused: 0,
     });
 }
+export function studyTimeline(logs, days = 14, end = new Date()) {
+  const byDate = new Map();
+  for (const log of logs) {
+    const item = byDate.get(log.date) || {
+      focused: 0,
+      unfocused: 0,
+      entries: [],
+    };
+    item[log.type] += log.minutes;
+    item.entries.push(log);
+    byDate.set(log.date, item);
+  }
+  return Array.from({ length: days }, (_, index) => {
+    const date = new Date(
+      end.getFullYear(),
+      end.getMonth(),
+      end.getDate() - (days - 1 - index),
+    );
+    const key = dayKey(date);
+    return {
+      date: key,
+      focused: 0,
+      unfocused: 0,
+      entries: [],
+      ...byDate.get(key),
+    };
+  });
+}
 export const initialState = {
   logs: [],
   journals: {},
@@ -62,7 +90,11 @@ export function migrateData(value) {
         !Number.isFinite(l.minutes) ||
         l.minutes < 1 ||
         l.minutes > 1440 ||
-        typeof l.date !== "string",
+        typeof l.date !== "string" ||
+        (l.id !== undefined && typeof l.id !== "string") ||
+        (l.note !== undefined && typeof l.note !== "string") ||
+        (l.createdAt !== undefined &&
+          !Number.isFinite(new Date(l.createdAt).getTime())),
     )
   )
     throw Error("Invalid logs");
@@ -73,7 +105,10 @@ export function migrateData(value) {
         !Number.isInteger(s.score) ||
         s.score < 120 ||
         s.score > 180 ||
-        typeof s.date !== "string",
+        typeof s.date !== "string" ||
+        (s.id !== undefined && typeof s.id !== "string") ||
+        (s.createdAt !== undefined &&
+          !Number.isFinite(new Date(s.createdAt).getTime())),
     )
   )
     throw Error("Invalid scores");

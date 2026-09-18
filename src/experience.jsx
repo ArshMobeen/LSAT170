@@ -65,6 +65,116 @@ export function Opening({ remaining, prefs, onClose }) {
         animate={{ x: reduced ? "100%" : "84%" }}
         transition={{ delay: 0.6, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
       />
+      <div
+        className={`headlight-scene ${reduced ? "reduced" : ""}`}
+        aria-hidden="true"
+      >
+        <div className="headlight-haze" />
+        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="carPaint" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#29425f" />
+              <stop offset="0.45" stopColor="#0b1727" />
+              <stop offset="1" stopColor="#02060c" />
+            </linearGradient>
+            <radialGradient id="lampGlass">
+              <stop offset="0" stopColor="#ffffff" />
+              <stop offset="0.25" stopColor="#dfeeff" />
+              <stop offset="0.7" stopColor="#738aa5" />
+              <stop offset="1" stopColor="#121d2d" />
+            </radialGradient>
+            <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stopColor="#eaf4ff" stopOpacity="0.5" />
+              <stop offset="1" stopColor="#91bbeb" stopOpacity="0" />
+            </linearGradient>
+            <filter
+              id="lampGlow"
+              x="-200%"
+              y="-200%"
+              width="500%"
+              height="500%"
+            >
+              <feGaussianBlur stdDeviation="18" />
+            </filter>
+          </defs>
+          <path
+            className="car-silhouette"
+            d="M220 704C270 494 425 330 720 320C1015 330 1170 494 1220 704L1120 810H320Z"
+            fill="url(#carPaint)"
+          />
+          <path
+            className="hood-line"
+            d="M330 626C486 540 592 514 720 518C848 514 954 540 1110 626"
+          />
+          <g className="headlamp left-lamp">
+            <path
+              className="beam"
+              d="M302 615L14 720L0 900H540L498 647Z"
+              fill="url(#beam)"
+            />
+            <path
+              className="lamp-glow"
+              d="M278 620C337 574 423 557 510 596L486 666C404 678 333 662 278 620Z"
+            />
+            <path
+              className="lamp-housing"
+              d="M278 620C337 574 423 557 510 596L486 666C404 678 333 662 278 620Z"
+            />
+            <path
+              className="lamp-signature"
+              d="M304 621C355 592 419 588 481 610C438 617 385 632 333 650"
+            />
+            <circle
+              className="projector"
+              cx="414"
+              cy="623"
+              r="24"
+              fill="url(#lampGlass)"
+            />
+          </g>
+          <g className="headlamp right-lamp">
+            <path
+              className="beam"
+              d="M1138 615L1426 720L1440 900H900L942 647Z"
+              fill="url(#beam)"
+            />
+            <path
+              className="lamp-glow"
+              d="M1162 620C1103 574 1017 557 930 596L954 666C1036 678 1107 662 1162 620Z"
+            />
+            <path
+              className="lamp-housing"
+              d="M1162 620C1103 574 1017 557 930 596L954 666C1036 678 1107 662 1162 620Z"
+            />
+            <path
+              className="lamp-signature"
+              d="M1136 621C1085 592 1021 588 959 610C1002 617 1055 632 1107 650"
+            />
+            <circle
+              className="projector"
+              cx="1026"
+              cy="623"
+              r="24"
+              fill="url(#lampGlass)"
+            />
+          </g>
+          <path
+            className="grille"
+            d="M570 600Q720 560 870 600L846 786Q720 824 594 786Z"
+          />
+          {[-95, -62, -31, 0, 31, 62, 95].map((x) => (
+            <path
+              key={x}
+              className="grille-slat"
+              d={`M${720 + x} 592L${720 + x * 0.82} 796`}
+            />
+          ))}
+          <g className="front-star" transform="translate(720 665)">
+            <circle r="72" />
+            <path d="M0-66L10-7L57 33L0 11L-57 33L-10-7Z" />
+          </g>
+        </svg>
+      </div>
       <motion.div
         className="opening-content"
         initial={{ opacity: 0, scale: 0.96 }}

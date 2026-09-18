@@ -19,7 +19,7 @@ The included `.github/workflows/mac-build.yml` builds the same installers on a m
 
 ## Your saved information
 
-Study logs, journal writing, tomorrow's plans, scores, daily plans, question reviews, personal notes, saved quotes, uploaded photos and settings automatically persist locally. They survive normal app quit and reopen. They are not stored inside the app bundle, and replacing the app with an update using the same app name preserves the profile.
+Study logs, session context and timestamps, journal writing, tomorrow's plans, scores, daily plans, question reviews, personal notes, saved quotes, uploaded photos and settings automatically persist locally. They survive normal app quit, restart and laptop shutdown. The progress chart and table are rebuilt from these saved records. They are not stored inside the app bundle, and replacing the app with an update using the same app name preserves the profile.
 
 Desktop storage is Chromium localStorage in the app's user profile, normally:
 

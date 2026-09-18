@@ -58,12 +58,23 @@ test("v2 backup round trip preserves plans, reviews, notes, favorites and prefer
 test("malformed backups are rejected before replacing current data", () => {
   for (const patch of [
     { logs: [{ minutes: -3, type: "focused" }] },
+    {
+      logs: [
+        {
+          date: "2026-09-17",
+          minutes: 10,
+          type: "focused",
+          createdAt: "not a date",
+        },
+      ],
+    },
     { journals: { x: { reflection: { bad: true } } } },
     { preferences: { tone: "invalid" } },
     { reviews: [{ id: "bad" }] },
     { resetSettings: { color: "bad" } },
     { resetSettings: { flowPalette: "bad" } },
     { plans: { today: { level: "bad", task: "x", done: false } } },
+    { scores: [{ score: 150, date: "2026-09-17", createdAt: "bad" }] },
   ])
     assert.throws(() => migrateData({ ...initialState, ...patch }));
 });

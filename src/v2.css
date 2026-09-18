@@ -397,6 +397,157 @@ header {
   place-items: center;
   overflow: hidden;
 }
+.headlight-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 78%,
+    #152840 0%,
+    #03070d 58%,
+    #010204 100%
+  );
+  opacity: 0;
+  animation: headlight-scene-in 1.2s 0.45s forwards;
+  pointer-events: none;
+}
+.headlight-scene svg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+}
+.headlight-haze {
+  position: absolute;
+  inset: 48% -15% -20%;
+  background: radial-gradient(ellipse at center, #9dc8f01e 0%, transparent 64%);
+  filter: blur(28px);
+  animation: headlight-haze-in 2.3s 1s both;
+}
+.car-silhouette {
+  opacity: 0.92;
+}
+.hood-line {
+  fill: none;
+  stroke: #7690ad4d;
+  stroke-width: 2;
+}
+.lamp-housing {
+  fill: #8398b142;
+  stroke: #9fb6d1;
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.lamp-signature {
+  fill: none;
+  stroke: #eef7ff;
+  stroke-linecap: round;
+  stroke-width: 8;
+  filter: drop-shadow(0 0 8px #c8e4ff);
+  stroke-dasharray: 230;
+  stroke-dashoffset: 230;
+  animation: headlight-signature 1.1s 1.1s cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+.projector,
+.beam,
+.lamp-glow {
+  opacity: 0;
+}
+.projector {
+  animation: projector-on 0.18s 1.95s forwards;
+}
+.beam {
+  animation: beam-on 1.4s 1.92s cubic-bezier(0.15, 0.8, 0.2, 1) forwards;
+}
+.lamp-glow {
+  fill: #d8ecff;
+  filter: url(#lampGlow);
+  animation: lamp-glow-on 1.1s 1.9s forwards;
+}
+.front-star circle,
+.front-star path {
+  fill: none;
+  stroke: #a9bdd3;
+  stroke-width: 3;
+  opacity: 0.42;
+}
+.front-star path {
+  fill: #a9bdd329;
+}
+.grille {
+  fill: #02060c;
+  stroke: #6f879f47;
+  stroke-width: 2;
+}
+.grille-slat {
+  stroke: #7e94aa52;
+  stroke-width: 4;
+}
+@keyframes headlight-scene-in {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes headlight-haze-in {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes headlight-signature {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes projector-on {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes beam-on {
+  from {
+    opacity: 0;
+    transform: scaleX(0.7);
+    transform-origin: center;
+  }
+  to {
+    opacity: 0.7;
+    transform: scaleX(1);
+  }
+}
+@keyframes lamp-glow-on {
+  to {
+    opacity: 0.8;
+  }
+}
+.headlight-scene.reduced {
+  opacity: 0.75;
+  animation: none;
+}
+.headlight-scene.reduced .lamp-signature {
+  stroke-dashoffset: 0;
+  animation: none;
+}
+.headlight-scene.reduced .projector,
+.headlight-scene.reduced .beam,
+.headlight-scene.reduced .lamp-glow {
+  opacity: 0.65;
+  animation: none;
+}
 .opening-photo {
   position: absolute;
   inset: 0;

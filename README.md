@@ -1,5 +1,11 @@
 # Angel’s 170
 
+## Version 2.3.0
+
+The progress screen now turns daily focused and unfocused study time into a paired bar chart with 14-day and 30-day views. Hover or keyboard-focus any day to see its totals and study context. A session table below shows the date, time logged, duration, focus type, and what was completed. Study sessions and practice scores have deliberate two-step delete controls for correcting mistakes.
+
+The opening sequence now stages a custom, code-rendered luxury headlight illumination behind the welcome and countdown. All new records keep their local timestamps and continue to use the existing on-device storage and backup format.
+
 ## Iteration 2.1
 
 The new edition adds an editorial photograph-led home, scroll-split imagery, reflective silver buttons, and tactile photo cards. New screens include Reset Room (spring ink, interactive water ripples, Matter.js crumple/toss paper, and colorful fluid painting on black), Words for You (24 original motivational passages, tone filters, search, favorites, optional family themes), and From Arsh (five personal notes plus custom notes).
@@ -23,9 +29,9 @@ For the desktop app: `npm run desktop`. To build a Windows portable executable: 
 
 ## Features
 
-- Animated personalized welcome and three-pointed star, with skip and replay.
+- Animated personalized welcome, three-pointed star and luxury headlight reveal, with skip and replay.
 - Live countdown to November 14, 2026, defaulting to 8 AM device-local time. Set the actual appointment in Settings.
-- Focus stopwatch, manual focused/unfocused logs, daily goal and study-day totals.
+- Focus stopwatch, manual focused/unfocused logs, daily goal, paired history chart, contextual session table and study-day totals.
 - Journals by date, tomorrow’s plan, wins, and practice score history.
 - Editorial vision board, personal image uploads, original affirmations and study tips.
 - Local storage, JSON export and validated restore. No account or cloud sync. Browser and Electron storage are separate; transfer via backup.
@@ -50,6 +56,6 @@ Focus Room includes native fullscreen with a distraction-free fallback and keybo
 
 ## Mac build kit and persistent storage
 
-See MAC-INSTALL.md for exact storage locations, transfer instructions, local Mac builds and the included GitHub Actions workflow. Source version 2.2.0 adds timer recovery; previously packaged Windows 2.1.0 does not include that change. Native Mac installers are built and tested using GitHub Actions. Download the app from https://github.com/ArshMobeen/LSAT170/releases/latest. Requires macOS 13 or newer; see INSTALL-ON-MAC.txt for installation and first-open approval.
+See MAC-INSTALL.md for exact storage locations, transfer instructions, local Mac builds and the included GitHub Actions workflow. Native Apple Silicon and Intel installers are built and tested using GitHub Actions. Download the app from https://github.com/ArshMobeen/LSAT170/releases/latest. Requires macOS 13 or newer; see INSTALL-ON-MAC.txt for installation and first-open approval.
 
 

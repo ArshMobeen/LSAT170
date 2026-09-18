@@ -18,8 +18,9 @@ This approval is specific to this app. Do not turn off Mac security protection.
 Apple's guide: https://support.apple.com/en-us/102445
 
 YOUR DATA
-Journals, logged hours, scores, photos, notes and settings save automatically on
-this Mac. An unfinished focus timer reopens paused. Use Finish & save to log it.
+Journals, logged hours, session context, scores, photos, notes and settings save
+automatically on this Mac. The study chart and table are rebuilt from those saved
+logs every time the app opens. An unfinished focus timer reopens paused. Use Finish & save to log it.
 Settings & backup lets you export a backup or restore one from another device.
 The Reset Room's drawings and disposable vent writing are temporary unless saved.
 

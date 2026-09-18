@@ -30,6 +30,7 @@ import { dayKey, countdown, totals, initialState, migrateData } from "./model";
 import ResetRoom from "./reset-room";
 import FocusRoom from "./focus-room";
 import { FOCUS_KEY, recoverFocus, focusCheckpoint } from "./focus-storage";
+import { ScoreJourney, StudyHistory } from "./progress-view";
 import { MotionPreference } from "./motion-preference";
 import {
   Opening,
@@ -188,7 +189,14 @@ function App() {
   const addLog = (log) => {
     setData((d) => ({
       ...d,
-      logs: [...d.logs, { ...log, id: crypto.randomUUID() }],
+      logs: [
+        ...d.logs,
+        {
+          ...log,
+          id: crypto.randomUUID(),
+          createdAt: new Date().toISOString(),
+        },
+      ],
     }));
     setToast("Session saved. Another promise kept.");
   };
@@ -727,45 +735,28 @@ function App() {
                         sub="I will get a 170."
                       />
                     </section>
-                    <section className="panel">
-                      <div className="section-top">
-                        <h3>Your score journey</h3>
-                        <button
-                          className="secondary"
-                          onClick={() => setModal("score")}
-                        >
-                          <Plus size={16} /> Log practice score
-                        </button>
-                      </div>
-                      <div className="score-chart">
-                        {[
-                          { score: 141, date: "Starting point" },
-                          ...data.scores,
-                        ].map((s, i) => (
-                          <div className="score-column" key={i}>
-                            <b>{s.score}</b>
-                            <div
-                              style={{
-                                height: `${40 + (s.score - 120) * 2}px`,
-                              }}
-                            />
-                            <small>{s.date}</small>
-                          </div>
-                        ))}
-                      </div>
-                      <p className="muted">
-                        Progress isn’t always a straight line. Review the
-                        lessons behind each score.
-                      </p>
-                    </section>
-                    <LogList
+                    <ScoreJourney
+                      scores={data.scores}
+                      onAdd={() => setModal("score")}
+                      onDelete={(index) => {
+                        update(
+                          "scores",
+                          data.scores.filter(
+                            (_, scoreIndex) => scoreIndex !== index,
+                          ),
+                        );
+                        setToast("Practice score deleted.");
+                      }}
+                    />
+                    <StudyHistory
                       logs={data.logs}
-                      remove={(id) =>
+                      onDelete={(index) => {
                         update(
                           "logs",
-                          data.logs.filter((l) => l.id !== id),
-                        )
-                      }
+                          data.logs.filter((_, logIndex) => logIndex !== index),
+                        );
+                        setToast("Study entry deleted.");
+                      }}
                     />
                   </>
                 )}
@@ -930,7 +921,14 @@ function App() {
                       onSave={(value) => {
                         if (modal === "log") addLog(value);
                         if (modal === "score") {
-                          update("scores", [...data.scores, value]);
+                          update("scores", [
+                            ...data.scores,
+                            {
+                              ...value,
+                              id: crypto.randomUUID(),
+                              createdAt: new Date().toISOString(),
+                            },
+                          ]);
                           setToast("Score saved. Keep learning.");
                         }
                         if (modal === "pin") {
@@ -1241,11 +1239,12 @@ function EntryForm({ type, onSave }) {
                 />
               </label>
               <label>
-                A little context (optional)
-                <input
+                What did you work on? (optional)
+                <textarea
                   name="note"
                   maxLength="200"
-                  placeholder="Logical reasoning, review, reading…"
+                  rows="3"
+                  placeholder="Logical reasoning set, blind review, reading comprehension…"
                 />
               </label>
             </>

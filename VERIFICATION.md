@@ -52,3 +52,12 @@ Release publishing note: both native Mac jobs succeeded. The subsequent bulk upl
 
 Public release: https://github.com/ArshMobeen/LSAT170/releases/tag/v2.2.1-mac-1 . Apple Silicon DMG published and server digest verified against the local file. Intel DMG is complete and verified locally at release/Angels-170-2.2.1-x64.dmg, but its public upload returned HTTP 500 and then timed out on retry. Release notes disclose that limitation. Both native Mac build/test jobs passed.
 
+## Version 2.3.0
+
+- Added a contiguous daily study timeline with focused and unfocused totals, including empty dates.
+- Added accessible chart hover and keyboard details, a contextual session table, and guarded deletion for study logs and practice scores.
+- Added a code-rendered luxury headlight illumination scene to the opening sequence with a reduced-motion state.
+- Backup validation now accepts and validates optional record IDs and creation timestamps while retaining compatibility with older backups.
+- Ten model and migration tests pass. Production renderer build passes.
+- The packaged desktop smoke test checks the headlight scene, persisted chart/table data after a full process restart, two-step score and session deletion, journal persistence, and paused timer recovery.
+

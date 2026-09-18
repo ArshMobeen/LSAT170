@@ -61,3 +61,7 @@ Actual iteration-2 dependencies: Motion for choreography/springs; metal-fx 2 for
 ## Iteration 2.1, approved September 17, 2026
 
 Four Reset Room modes now include Color flow: black canvas, cursor-following dye, fluid curls, click/drag painting, adjustable spread/linger/energy, four palettes, pause, clear and PNG export. Use a lighter particle fallback if WebGL2 float rendering is unavailable. Focus Room must support fullscreen with an accessible exit. Personal letters are titled From Arsh and signed Arsh. Keep navigation elegant, grouped and responsive, with a moving active indicator. Remove unnecessary descriptive annotations. Do not use em dashes in user-facing text. These refinements are approved; preserve existing study data.
+
+## Iteration 2.3, approved September 18, 2026
+
+Progress includes a focused versus unfocused daily bar chart with hover and keyboard details, context notes, exact logging time for new entries, and a complete session table. Time and practice-score records have guarded deletion controls. The opening adds an original luxury-car headlight illumination sequence behind the welcome and countdown. All saved study records remain device-local and persist across restart and power-off. Existing backups and older records remain compatible.
