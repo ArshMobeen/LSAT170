@@ -1,5 +1,20 @@
-import React, { useMemo, useState } from "react";
-import { Clock, Trash2, Check, X } from "lucide-react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  CalendarDays,
+  Check,
+  ChevronLeft,
+  ChevronRight,
+  Minus,
+  Plus,
+  Trash2,
+  X,
+} from "lucide-react";
 import { studyTimeline } from "./model";
 
 const dateLabel = (key, options = { month: "short", day: "numeric" }) =>
@@ -8,6 +23,61 @@ const durationLabel = (minutes) =>
   minutes >= 60
     ? `${Math.floor(minutes / 60)}h${minutes % 60 ? ` ${minutes % 60}m` : ""}`
     : `${minutes}m`;
+
+const zoomLevels = [
+  { days: 2, label: "2 days" },
+  { days: 5, label: "5 days" },
+  { days: 7, label: "1 week" },
+  { days: 14, label: "2 weeks" },
+  { days: 31, label: "1 month" },
+  { days: 90, label: "3 months" },
+];
+
+const metricsFor = (visibleDays, width) => {
+  const gap = visibleDays <= 7 ? 8 : visibleDays <= 31 ? 5 : 1;
+  const dayWidth = Math.max(
+    2.2,
+    (Math.max(width, 320) - gap * (visibleDays - 1)) / visibleDays,
+  );
+  return { gap, dayWidth, step: gap + dayWidth };
+};
+
+const timelineLength = (logs) => {
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const oneYearAgo = new Date(today);
+  oneYearAgo.setDate(oneYearAgo.getDate() - 364);
+  let start = oneYearAgo;
+  for (const log of logs) {
+    const date = new Date(`${log.date}T12:00:00`);
+    if (Number.isFinite(date.getTime()) && date < start) start = date;
+  }
+  return Math.min(
+    1826,
+    Math.max(365, Math.round((today - start) / 86400000) + 1),
+  );
+};
+
+const windowLabel = (start, end) => {
+  if (!start || !end) return "";
+  const startDate = new Date(`${start}T12:00:00`);
+  const endDate = new Date(`${end}T12:00:00`);
+  const sameYear = startDate.getFullYear() === endDate.getFullYear();
+  const sameMonth = sameYear && startDate.getMonth() === endDate.getMonth();
+  const startText = startDate.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: sameYear ? undefined : "numeric",
+  });
+  const endText = sameMonth
+    ? `${endDate.getDate()}, ${endDate.getFullYear()}`
+    : endDate.toLocaleDateString(undefined, {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+  return `${startText} to ${endText}`;
+};
 
 function ConfirmDelete({ label, onDelete }) {
   const [armed, setArmed] = useState(false);
@@ -34,11 +104,140 @@ function ConfirmDelete({ label, onDelete }) {
 }
 
 export function StudyHistory({ logs, onDelete }) {
-  const [range, setRange] = useState(14),
-    [active, setActive] = useState(null);
-  const days = useMemo(() => studyTimeline(logs, range), [logs, range]);
-  const max = Math.max(60, ...days.map((day) => day.focused + day.unfocused));
-  const selected = active === null ? null : days[active];
+  const historyDays = useMemo(() => timelineLength(logs), [logs]);
+  const days = useMemo(
+    () => studyTimeline(logs, historyDays),
+    [logs, historyDays],
+  );
+  const scrollRef = useRef(null);
+  const positioned = useRef(false);
+  const pendingCenter = useRef(null);
+  const [visibleDays, setVisibleDays] = useState(14);
+  const [chartWidth, setChartWidth] = useState(800);
+  const [viewport, setViewport] = useState(() => ({
+    start: Math.max(0, historyDays - 14),
+    end: historyDays - 1,
+  }));
+  const [active, setActive] = useState(null);
+  const { gap, dayWidth, step } = useMemo(
+    () => metricsFor(visibleDays, chartWidth),
+    [visibleDays, chartWidth],
+  );
+  const selected = active ? days.find((day) => day.date === active) : null;
+  const visibleSlice = days.slice(viewport.start, viewport.end + 1);
+  const max = Math.max(
+    60,
+    ...visibleSlice.map((day) => day.focused + day.unfocused),
+  );
+
+  const syncViewport = useCallback(() => {
+    const element = scrollRef.current;
+    if (!element) return;
+    const start = Math.max(
+      0,
+      Math.min(days.length - 1, Math.floor((element.scrollLeft + 0.5) / step)),
+    );
+    const end = Math.min(days.length - 1, start + visibleDays - 1);
+    setViewport((current) =>
+      current.start === start && current.end === end ? current : { start, end },
+    );
+  }, [days.length, step, visibleDays]);
+
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element) return undefined;
+    const observer = new ResizeObserver(() => {
+      setChartWidth(element.clientWidth);
+      requestAnimationFrame(syncViewport);
+    });
+    observer.observe(element);
+    setChartWidth(element.clientWidth);
+    return () => observer.disconnect();
+  }, [syncViewport]);
+
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element || positioned.current || !chartWidth) return;
+    positioned.current = true;
+    requestAnimationFrame(() => {
+      element.scrollLeft = element.scrollWidth - element.clientWidth;
+      syncViewport();
+    });
+  }, [chartWidth, days.length, syncViewport]);
+
+  useEffect(() => {
+    const element = scrollRef.current;
+    if (!element || pendingCenter.current === null) return;
+    const center = pendingCenter.current;
+    pendingCenter.current = null;
+    const previousBehavior = element.style.scrollBehavior;
+    element.style.scrollBehavior = "auto";
+    element.scrollLeft = Math.max(
+      0,
+      center * step - element.clientWidth / 2 + dayWidth / 2,
+    );
+    requestAnimationFrame(() => {
+      element.style.scrollBehavior = previousBehavior;
+      syncViewport();
+    });
+  }, [dayWidth, step, syncViewport, visibleDays]);
+
+  const changeZoom = (nextDays, anchorIndex) => {
+    const element = scrollRef.current;
+    if (!element) return;
+    const center =
+      anchorIndex ??
+      Math.max(
+        0,
+        Math.min(
+          days.length - 1,
+          Math.round((element.scrollLeft + element.clientWidth / 2) / step),
+        ),
+      );
+    pendingCenter.current = center;
+    setVisibleDays(nextDays);
+    setActive(null);
+  };
+
+  const zoomIndex = zoomLevels.findIndex((level) => level.days === visibleDays);
+  const shiftWindow = (direction) => {
+    scrollRef.current?.scrollBy({
+      left: direction * chartWidth * 0.84,
+      behavior: "smooth",
+    });
+  };
+  const jumpToToday = () => {
+    const element = scrollRef.current;
+    element?.scrollTo({
+      left: element.scrollWidth - element.clientWidth,
+      behavior: "smooth",
+    });
+  };
+  const jumpToLastMonth = () => {
+    const date = new Date();
+    const first = new Date(date.getFullYear(), date.getMonth() - 1, 1);
+    const last = new Date(date.getFullYear(), date.getMonth(), 0);
+    const firstKey = [
+      first.getFullYear(),
+      String(first.getMonth() + 1).padStart(2, "0"),
+      "01",
+    ].join("-");
+    const lastKey = [
+      last.getFullYear(),
+      String(last.getMonth() + 1).padStart(2, "0"),
+      String(last.getDate()).padStart(2, "0"),
+    ].join("-");
+    const firstIndex = Math.max(
+      0,
+      days.findIndex((day) => day.date === firstKey),
+    );
+    const lastIndex = days.findIndex((day) => day.date === lastKey);
+    const center = Math.round(
+      (firstIndex + Math.max(firstIndex, lastIndex)) / 2,
+    );
+    changeZoom(31, center);
+  };
+
   const sorted = logs
     .map((log, index) => ({ ...log, sourceIndex: index }))
     .sort((a, b) =>
@@ -53,20 +252,54 @@ export function StudyHistory({ logs, onDelete }) {
           <span className="eyebrow">TIME, MADE VISIBLE</span>
           <h3>Your study rhythm</h3>
         </div>
-        <div className="range-picker" aria-label="Chart range">
-          {[14, 30].map((value) => (
-            <button
-              key={value}
-              className={range === value ? "active" : ""}
-              aria-pressed={range === value}
-              onClick={() => {
-                setRange(value);
-                setActive(null);
-              }}
+        <div className="timeline-presets">
+          <button onClick={jumpToLastMonth}>
+            <CalendarDays size={14} /> Last month
+          </button>
+          <button onClick={jumpToToday}>Today</button>
+        </div>
+      </div>
+      <div className="timeline-toolbar">
+        <div className="timeline-navigation">
+          <button aria-label="Earlier dates" onClick={() => shiftWindow(-1)}>
+            <ChevronLeft size={16} />
+          </button>
+          <strong aria-live="polite">
+            {windowLabel(days[viewport.start]?.date, days[viewport.end]?.date)}
+          </strong>
+          <button aria-label="Later dates" onClick={() => shiftWindow(1)}>
+            <ChevronRight size={16} />
+          </button>
+        </div>
+        <div className="timeline-zoom">
+          <button
+            aria-label="Zoom in to fewer days"
+            disabled={zoomIndex === 0}
+            onClick={() => changeZoom(zoomLevels[zoomIndex - 1].days)}
+          >
+            <Plus size={14} />
+          </button>
+          <label>
+            <span>View</span>
+            <select
+              aria-label="Days visible"
+              value={visibleDays}
+              onChange={(event) => changeZoom(Number(event.target.value))}
             >
-              {value} days
-            </button>
-          ))}
+              {zoomLevels.map((level) => (
+                <option key={level.days} value={level.days}>
+                  {level.label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <button
+            aria-label="Zoom out to more days"
+            disabled={zoomIndex === zoomLevels.length - 1}
+            onClick={() => changeZoom(zoomLevels[zoomIndex + 1].days)}
+          >
+            <Minus size={14} />
+          </button>
         </div>
       </div>
       <div className="chart-legend" aria-hidden="true">
@@ -84,50 +317,72 @@ export function StudyHistory({ logs, onDelete }) {
           <span>0</span>
         </div>
         <div
-          className="study-chart"
-          style={{ "--chart-days": range }}
-          role="list"
-          aria-label={`${range} day study time chart`}
+          className="study-chart-scroll"
+          ref={scrollRef}
+          onScroll={syncViewport}
+          onPointerDown={() => setActive(null)}
+          tabIndex="0"
+          aria-label="Scrollable study time timeline"
         >
-          {days.map((day, index) => {
-            const total = day.focused + day.unfocused;
-            return (
-              <button
-                type="button"
-                role="listitem"
-                key={day.date}
-                className={`study-day ${active === index ? "active" : ""}`}
-                onMouseEnter={() => setActive(index)}
-                onMouseLeave={() => setActive(null)}
-                onFocus={() => setActive(index)}
-                onBlur={() => setActive(null)}
-                aria-label={`${dateLabel(day.date, { weekday: "long", month: "long", day: "numeric" })}: ${day.focused} focused minutes and ${day.unfocused} unfocused minutes`}
-              >
-                <span className="bar-pair" aria-hidden="true">
-                  <i
-                    className="bar focused"
-                    style={{
-                      height: `${Math.max(day.focused ? 5 : 0, (day.focused / max) * 100)}%`,
-                    }}
-                  />
-                  <i
-                    className="bar unfocused"
-                    style={{
-                      height: `${Math.max(day.unfocused ? 5 : 0, (day.unfocused / max) * 100)}%`,
-                    }}
-                  />
-                </span>
-                <small>
-                  {range === 14 || index % 3 === 0 || index === days.length - 1
-                    ? dateLabel(day.date)
-                    : ""}
-                </small>
-                {total > 0 && (
-                  <span className="sr-only">{durationLabel(total)} total</span>
-                )}
-              </button>
-            );
-          })}
+          <div
+            className={`study-chart ${visibleDays >= 60 ? "dense" : ""}`}
+            style={{
+              "--day-width": `${dayWidth}px`,
+              "--chart-gap": `${gap}px`,
+            }}
+            role="list"
+            aria-label={`${historyDays} day study time chart`}
+          >
+            {days.map((day, index) => {
+              const total = day.focused + day.unfocused;
+              const startsMonth = day.date.endsWith("-01") || index === 0;
+              return (
+                <button
+                  type="button"
+                  role="listitem"
+                  key={day.date}
+                  className={`study-day ${active === day.date ? "active" : ""}`}
+                  onMouseEnter={() => setActive(day.date)}
+                  onMouseLeave={() => setActive(null)}
+                  onFocus={() => setActive(day.date)}
+                  onBlur={() => setActive(null)}
+                  aria-label={`${dateLabel(day.date, { weekday: "long", month: "long", day: "numeric", year: "numeric" })}: ${day.focused} focused minutes and ${day.unfocused} unfocused minutes`}
+                >
+                  {startsMonth && (
+                    <span className="month-marker" aria-hidden="true">
+                      {dateLabel(day.date, { month: "short", year: "numeric" })}
+                    </span>
+                  )}
+                  <span className="bar-pair" aria-hidden="true">
+                    <i
+                      className="bar focused"
+                      style={{
+                        height: `${Math.max(day.focused ? 5 : 0, (day.focused / max) * 100)}%`,
+                      }}
+                    />
+                    <i
+                      className="bar unfocused"
+                      style={{
+                        height: `${Math.max(day.unfocused ? 5 : 0, (day.unfocused / max) * 100)}%`,
+                      }}
+                    />
+                  </span>
+                  <small>
+                    {visibleDays <= 14 ||
+                    (visibleDays <= 31 && index % 5 === 0) ||
+                    (visibleDays > 31 && index % 15 === 0)
+                      ? dateLabel(day.date, { day: "numeric" })
+                      : ""}
+                  </small>
+                  {total > 0 && (
+                    <span className="sr-only">
+                      {durationLabel(total)} total
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
         {selected && (
           <div className="chart-tooltip" role="status">

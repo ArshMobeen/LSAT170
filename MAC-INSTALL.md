@@ -15,7 +15,7 @@ The build script uses local ad-hoc signing. It does not provide an Apple Develop
 
 ## Build using GitHub
 
-The included `.github/workflows/mac-build.yml` builds the same installers on a macOS runner. Put the source in your chosen repository, open Actions > Build Mac installers > Run workflow, then download the resulting artifact. The source repository is https://github.com/ArshMobeen/LSAT170. A push to main or codex/mac-release triggers native ARM64 and Intel builds, signature verification, packaged-app persistence tests and a downloadable GitHub Release. Usage may count toward the repository's Actions allowance.
+The included `.github/workflows/mac-build.yml` builds the installers on native macOS and Windows runners. Put the source in your chosen repository, open Actions > Build desktop installers > Run workflow, then download the resulting artifact. The source repository is https://github.com/ArshMobeen/LSAT170. A push to main or codex/mac-release triggers native ARM64, Intel and Windows builds, packaged-app persistence tests and a downloadable GitHub Release. Usage may count toward the repository's Actions allowance.
 
 ## Your saved information
 
@@ -38,4 +38,3 @@ Deleting the profile, clearing browser site data, disk failure or changing compu
 Before relying on the app, log a short session, write a journal sentence, quit with Command-Q and reopen. Confirm both are present. Also check fullscreen, color flow, backup export/restore and the timer's paused recovery. The GitHub workflow exercises native packaged execution on both Apple Silicon and Intel Mac runners before publishing a release.
 
 References: https://www.electronjs.org/docs/latest/api/app and https://www.electronjs.org/docs/latest/tutorial/code-signing
-

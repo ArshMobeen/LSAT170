@@ -1,5 +1,11 @@
 # Angel’s 170
 
+## Version 2.4.0
+
+Study history is now a scrollable timeline spanning at least one year. Zoom between 2 days, 5 days, one week, two weeks, one month and three months without losing the date you were viewing. Earlier and later controls, month markers, visible-date feedback, Last month and Today jumps make long-term patterns easy to revisit. Hover and keyboard details continue to show focused time, unfocused time and study context.
+
+The opening now focuses entirely on two close-up digital headlights. They pulse, open their projector shutters, trace their white perimeter signatures and resolve their internal pixels before the welcome appears. The scene is an original SVG/CSS recreation based on the supplied 0:43 lighting reference.
+
 ## Version 2.3.0
 
 The progress screen now turns daily focused and unfocused study time into a paired bar chart with 14-day and 30-day views. Hover or keyboard-focus any day to see its totals and study context. A session table below shows the date, time logged, duration, focus type, and what was completed. Study sessions and practice scores have deliberate two-step delete controls for correcting mistakes.
@@ -53,9 +59,6 @@ Apple-inspired independent design, not an official Apple or Mercedes-Benz produc
 
 Focus Room includes native fullscreen with a distraction-free fallback and keyboard exit. Color flow includes four palettes, adjustable spread/linger/energy, pause, clear and PNG export. Its original WebGL2 fluid renderer falls back to a lighter Canvas particle effect on unsupported devices.
 
-
 ## Mac build kit and persistent storage
 
 See MAC-INSTALL.md for exact storage locations, transfer instructions, local Mac builds and the included GitHub Actions workflow. Native Apple Silicon and Intel installers are built and tested using GitHub Actions. Download the app from https://github.com/ArshMobeen/LSAT170/releases/latest. Requires macOS 13 or newer; see INSTALL-ON-MAC.txt for installation and first-open approval.
-
-

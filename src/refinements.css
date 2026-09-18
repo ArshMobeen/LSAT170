@@ -327,30 +327,110 @@ main {
 .study-history-heading h3 {
   margin-top: 7px;
 }
-.range-picker {
+.timeline-presets,
+.timeline-navigation,
+.timeline-zoom,
+.timeline-toolbar {
   display: flex;
-  padding: 4px;
-  border: 1px solid #ffffff13;
+  align-items: center;
+}
+.timeline-presets {
+  gap: 6px;
+}
+.timeline-presets button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 11px;
+  border: 1px solid #ffffff12;
+  border-radius: 999px;
+  color: #91a6bf;
   background: #06101da8;
-  border-radius: 999px;
+  font-size: 9px;
 }
-.range-picker button {
-  padding: 8px 13px;
-  border-radius: 999px;
-  color: #7f94ad;
+.timeline-presets button:hover {
+  color: #e8f0fb;
+  border-color: #9eb9d63d;
+}
+.timeline-toolbar {
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 10px 12px;
+  border: 1px solid #ffffff10;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #071321d6, #0a1827b8);
+}
+.timeline-navigation {
+  gap: 8px;
+  min-width: 0;
+}
+.timeline-navigation button,
+.timeline-zoom > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border: 1px solid #9db8d124;
+  border-radius: 10px;
+  color: #9eb3ca;
+  background: #a3bdd70a;
+}
+.timeline-navigation button:hover,
+.timeline-zoom > button:hover:not(:disabled) {
+  color: #eff6ff;
+  border-color: #b5cee74d;
+  background: #a3bdd71a;
+}
+.timeline-navigation strong {
+  min-width: 160px;
+  color: #cbd8e8;
+  font:
+    13px Georgia,
+    serif;
+  text-align: center;
+  white-space: nowrap;
+}
+.timeline-zoom {
+  gap: 7px;
+}
+.timeline-zoom > button:disabled {
+  opacity: 0.28;
+}
+.timeline-zoom label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 30px;
+  padding: 0 10px;
+  border: 1px solid #9db8d124;
+  border-radius: 10px;
+  color: #7188a1;
+  background: #030b14a8;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.timeline-zoom select {
+  width: auto;
+  min-width: 78px;
+  padding: 0 16px 0 0;
+  border: 0;
+  color: #d9e5f3;
+  background: transparent;
   font-size: 10px;
-  letter-spacing: 0.04em;
+  letter-spacing: 0;
+  text-transform: none;
 }
-.range-picker button.active {
-  color: #eff5ff;
-  background: #8faacc25;
-  box-shadow: inset 0 0 0 1px #b8cee838;
+.timeline-zoom option {
+  color: #122034;
 }
 .chart-legend {
   display: flex;
   gap: 20px;
   justify-content: flex-end;
-  margin: 18px 4px 4px;
+  margin: 12px 4px 5px;
   color: #91a6bf;
   font-size: 10px;
 }
@@ -372,35 +452,63 @@ main {
 }
 .study-chart-shell {
   position: relative;
-  min-height: 330px;
-  padding: 32px 10px 16px 52px;
+  min-height: 354px;
+  padding: 18px 10px 12px 50px;
   border-radius: 20px;
   border: 1px solid #ffffff10;
   background:
-    linear-gradient(#ffffff08 1px, transparent 1px) 0 32px / 100% 120px,
+    linear-gradient(#ffffff08 1px, transparent 1px) 0 61px / 100% 112px,
     radial-gradient(circle at 50% 0%, #21375346, transparent 65%),
     #050d18;
 }
 .chart-scale {
   position: absolute;
   left: 10px;
-  top: 28px;
-  bottom: 36px;
+  top: 61px;
+  bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   color: #61758d;
   font-size: 9px;
 }
+.study-chart-scroll {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-color: #7996b458 #030914;
+  scrollbar-width: thin;
+  scroll-behavior: smooth;
+}
+.study-chart-scroll:focus-visible {
+  outline: 1px solid #9fb9d548;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+.study-chart-scroll::-webkit-scrollbar {
+  height: 7px;
+}
+.study-chart-scroll::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: #030914;
+}
+.study-chart-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(90deg, #496581, #92abc5);
+}
 .study-chart {
   display: grid;
-  grid-template-columns: repeat(var(--chart-days), minmax(21px, 1fr));
+  grid-auto-flow: column;
+  grid-auto-columns: var(--day-width);
   align-items: end;
-  gap: clamp(4px, 0.7vw, 11px);
-  height: 270px;
-  min-width: calc(var(--chart-days) * 26px);
+  gap: var(--chart-gap);
+  width: max-content;
+  height: 318px;
+  padding-top: 32px;
 }
 .study-day {
+  position: relative;
   height: 100%;
   min-width: 0;
   display: flex;
@@ -427,11 +535,11 @@ main {
   justify-content: center;
   gap: 3px;
   width: 100%;
-  height: 230px;
+  height: 242px;
 }
 .bar {
   display: block;
-  width: min(10px, 42%);
+  width: min(11px, 42%);
   min-height: 0;
   border-radius: 5px 5px 2px 2px;
   transition:
@@ -453,6 +561,37 @@ main {
   height: 13px;
   white-space: nowrap;
   font-size: 8px;
+}
+.month-marker {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  width: max-content;
+  color: #adc1d8;
+  font:
+    10px Georgia,
+    serif;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.month-marker::before {
+  content: "";
+  position: absolute;
+  top: 17px;
+  bottom: -270px;
+  left: 0;
+  width: 1px;
+  background: linear-gradient(#9fb7d12d, transparent);
+}
+.study-chart.dense .bar-pair {
+  gap: 1px;
+}
+.study-chart.dense .bar {
+  width: 42%;
+  border-radius: 2px 2px 0 0;
+}
+.study-chart.dense .study-day small {
+  font-size: 7px;
 }
 .chart-tooltip {
   position: absolute;
@@ -603,12 +742,26 @@ main {
   .study-history {
     padding: 20px 15px;
   }
-  .study-chart-shell {
-    overflow-x: auto;
+  .study-history-heading,
+  .timeline-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .timeline-toolbar {
+    gap: 10px;
+  }
+  .timeline-navigation,
+  .timeline-zoom {
+    width: 100%;
+  }
+  .timeline-navigation strong {
+    flex: 1;
+  }
+  .timeline-zoom {
+    justify-content: flex-end;
   }
   .chart-tooltip {
-    position: sticky;
-    left: 55px;
+    width: min(220px, calc(100% - 75px));
   }
 }
 .focus-sanctuary:focus-visible {

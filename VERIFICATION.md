@@ -34,11 +34,10 @@ macOS packaging and native macOS behavior have not been tested on this Windows h
 Windows portable 2.1.0 packaging completed successfully. Executable copied to release/Angels 170 2.1.0.exe. Native executable launch was not exercised in this final pass.
 
 ## Version 2.2.0
+
 Nine automated tests passed and production renderer built. Focus recovery preserves a checkpoint and resumes paused. Mac ARM64/x64 DMG and ZIP configuration, an ad-hoc signing build script and manual GitHub macOS workflow added. Native Mac build and runtime verification are pending; no finished Mac installer is claimed.
 
-
 Browser persistence verified: a running focus session reloaded at 40 seconds, paused; a completed 1-minute log survived another reload; the timer stayed reset after saving. Temporary verification log removed through the UI. Mac configuration passed electron-builder schema validation; workflow YAML parsed; build kit ZIP includes the workflow and build script.
-
 
 ## Version 2.2.1 Mac release
 
@@ -61,3 +60,12 @@ Public release: https://github.com/ArshMobeen/LSAT170/releases/tag/v2.2.1-mac-1 
 - Ten model and migration tests pass. Production renderer build passes.
 - The packaged desktop smoke test checks the headlight scene, persisted chart/table data after a full process restart, two-step score and session deletion, journal persistence, and paused timer recovery.
 
+## Version 2.4.0
+
+- Added a one-year-or-longer scrollable daily timeline with 2-day, 5-day, weekly, two-week, monthly and three-month zoom levels.
+- Added earlier/later paging, Last month and Today jumps, month markers and live visible-date feedback while preserving hover and keyboard details.
+- Replaced the vehicle-front intro with two original close-up digital headlights. The animation includes light pulses, opening projector shutters, perimeter tracing and sequential pixels, plus a static reduced-motion state.
+- Expanded release automation to build and test Windows x64 alongside Mac ARM64 and Mac x64, then publish all three installers in one release.
+- Ten automated tests and the Vite production build pass. The isolated Electron smoke test passes against source and the packaged Windows payload, including chart zoom, restart persistence and guarded deletion.
+- Browser checks covered 2-day and 3-month zoom, month markers, date-preserving zoom and the completed headlight composition. No browser runtime errors were observed.
+- Local Windows portable: `release/Angels-170-2.4.0-Windows-x64.exe`, SHA-256 `8D048A1886C04CA5B7BCE929CCC6216EF1ADBE5316CED8692F2D08103B8F988C`.

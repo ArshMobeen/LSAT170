@@ -13,7 +13,8 @@ async function launch() {
   app = await electron.launch({ executablePath, args, timeout: 60000 });
   const page = await app.firstWindow();
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.locator(".headlight-scene").waitFor();
+  await page.locator(".headlight-scene .digital-lamp").first().waitFor();
+  assert.equal(await page.locator(".headlight-scene .digital-lamp").count(), 2);
   await page.getByRole("button", { name: "Skip intro", exact: true }).click();
   await page.getByRole("button", { name: "Focus room", exact: true }).waitFor();
   return page;
@@ -58,7 +59,12 @@ try {
     .getByText("Packaged app persistence check", { exact: false })
     .waitFor();
   await page.getByRole("button", { name: "My progress", exact: true }).click();
-  await page.getByRole("list", { name: "14 day study time chart" }).waitFor();
+  await page.getByRole("list", { name: /day study time chart/ }).waitFor();
+  await page.getByLabel("Days visible").selectOption("5");
+  assert.equal(await page.getByLabel("Days visible").inputValue(), "5");
+  await page.getByRole("button", { name: "Last month" }).click();
+  assert.equal(await page.getByLabel("Days visible").inputValue(), "31");
+  await page.getByRole("button", { name: "Today", exact: true }).click();
   await page
     .getByText("Packaged app persistence check", { exact: true })
     .waitFor();
@@ -93,11 +99,14 @@ try {
   await page.getByRole("button", { name: "Overview", exact: true }).click();
   await mkdir("release", { recursive: true });
   await page.screenshot({
-    path: resolve("release", `mac-preview-${process.arch}.png`),
+    path: resolve(
+      "release",
+      `${process.platform === "darwin" ? "mac" : "windows"}-preview-${process.arch}.png`,
+    ),
   });
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: headlight intro, persistent chart/table data, guarded deletions, journal, focus intention and paused timer.",
+    "PASS: two-headlight intro, scrollable chart zoom, persistent table data, guarded deletions, journal, focus intention and paused timer.",
   );
 } finally {
   await app?.close();

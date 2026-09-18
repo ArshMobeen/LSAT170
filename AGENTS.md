@@ -15,3 +15,7 @@ Four Reset Room modes now include Color flow: black canvas, cursor-following dye
 ## Iteration 2.3, approved September 18, 2026
 
 Progress uses a persistent focused/unfocused daily bar chart with hover details, context notes, logging times and a detailed session table. Time and score entries have guarded deletion. The opening includes an original luxury-car headlight illumination sequence. Preserve older saved records and backup compatibility.
+
+## Iteration 2.4, approved September 18, 2026
+
+Progress history scrolls across months and supports 2-day, 5-day, weekly, two-week, monthly and three-month zoom. Keep navigation and hover/keyboard details accessible. The startup background shows only two close-up digital headlights, with a pulse, shutter-opening and perimeter-light sequence inspired by the user-supplied 0:43 reference. Do not show a grille or vehicle body. Package and verify Windows x64, Mac arm64 and Mac x64 for release.

@@ -401,14 +401,11 @@ header {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background: radial-gradient(
-    ellipse at 50% 78%,
-    #152840 0%,
-    #03070d 58%,
-    #010204 100%
-  );
+  background:
+    radial-gradient(ellipse at 23% 54%, #13243a 0%, transparent 31%),
+    radial-gradient(ellipse at 77% 54%, #13243a 0%, transparent 31%), #000205;
   opacity: 0;
-  animation: headlight-scene-in 1.2s 0.45s forwards;
+  animation: headlight-scene-in 0.7s 0.15s forwards;
   pointer-events: none;
 }
 .headlight-scene svg {
@@ -419,70 +416,137 @@ header {
 }
 .headlight-haze {
   position: absolute;
-  inset: 48% -15% -20%;
-  background: radial-gradient(ellipse at center, #9dc8f01e 0%, transparent 64%);
-  filter: blur(28px);
-  animation: headlight-haze-in 2.3s 1s both;
+  inset: 17% 0 8%;
+  background: linear-gradient(
+    90deg,
+    transparent 4%,
+    #8fbbe20b 24%,
+    transparent 47%,
+    transparent 53%,
+    #8fbbe20b 76%,
+    transparent 96%
+  );
+  filter: blur(36px);
+  animation: headlight-haze-in 2.8s 1.45s both;
 }
-.car-silhouette {
-  opacity: 0.92;
-}
-.hood-line {
-  fill: none;
-  stroke: #7690ad4d;
-  stroke-width: 2;
-}
-.lamp-housing {
-  fill: #8398b142;
-  stroke: #9fb6d1;
-  stroke-width: 2;
-  opacity: 0.5;
-}
-.lamp-signature {
-  fill: none;
-  stroke: #eef7ff;
-  stroke-linecap: round;
-  stroke-width: 8;
-  filter: drop-shadow(0 0 8px #c8e4ff);
-  stroke-dasharray: 230;
-  stroke-dashoffset: 230;
-  animation: headlight-signature 1.1s 1.1s cubic-bezier(0.2, 0.8, 0.2, 1)
+.digital-lamp {
+  opacity: 0;
+  animation: digital-lamp-arrive 0.9s 0.25s cubic-bezier(0.18, 0.76, 0.2, 1)
     forwards;
 }
-.projector,
-.beam,
-.lamp-glow {
+.digital-lamp.right-lamp {
+  animation-delay: 0.38s;
+}
+.lamp-aura {
+  fill: #c9e7ff;
+  filter: url(#digitalGlow);
   opacity: 0;
+  animation: lamp-aura-open 1.6s 2.05s ease-out forwards;
 }
-.projector {
-  animation: projector-on 0.18s 1.95s forwards;
+.lamp-housing {
+  stroke: #6f80931f;
+  stroke-width: 2.5;
 }
-.beam {
-  animation: beam-on 1.4s 1.92s cubic-bezier(0.15, 0.8, 0.2, 1) forwards;
+.lamp-depth {
+  fill: #020408;
+  stroke: #90a8bf12;
+  stroke-width: 1;
 }
-.lamp-glow {
-  fill: #d8ecff;
-  filter: url(#lampGlow);
-  animation: lamp-glow-on 1.1s 1.9s forwards;
-}
-.front-star circle,
-.front-star path {
+.signature-flash,
+.signature-trace,
+.light-slice {
   fill: none;
-  stroke: #a9bdd3;
-  stroke-width: 3;
-  opacity: 0.42;
+  stroke: #f2f9ff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px #cde7ff) drop-shadow(0 0 24px #90bde8);
 }
-.front-star path {
-  fill: #a9bdd329;
+.signature-flash {
+  stroke-width: 10;
+  opacity: 0;
+  animation: digital-headlight-blink 1.25s 0.55s both;
 }
-.grille {
+.right-lamp .signature-flash {
+  animation-delay: 0.68s;
+}
+.signature-trace {
+  stroke-width: 8;
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+  opacity: 0;
+  animation: digital-signature-open 1.2s 1.72s cubic-bezier(0.2, 0.85, 0.2, 1)
+    forwards;
+}
+.right-lamp .signature-trace {
+  animation-delay: 1.84s;
+}
+.pixel-bank rect {
+  fill: #e8f5ff;
+  opacity: 0;
+  filter: drop-shadow(0 0 7px #d5ecff);
+  animation: digital-pixel-on 0.32s 2.45s forwards;
+}
+.pixel-bank rect:nth-child(2) {
+  animation-delay: 2.5s;
+}
+.pixel-bank rect:nth-child(3) {
+  animation-delay: 2.55s;
+}
+.pixel-bank rect:nth-child(4) {
+  animation-delay: 2.6s;
+}
+.pixel-bank rect:nth-child(5) {
+  animation-delay: 2.65s;
+}
+.pixel-bank rect:nth-child(6) {
+  animation-delay: 2.7s;
+}
+.digital-lens > rect:first-child {
   fill: #02060c;
-  stroke: #6f879f47;
+  stroke: #9bb0c557;
   stroke-width: 2;
 }
-.grille-slat {
-  stroke: #7e94aa52;
-  stroke-width: 4;
+.lens-face {
+  opacity: 0;
+  animation: digital-core-on 0.42s 2.48s forwards;
+}
+.lens-cut {
+  fill: none;
+  stroke: #f0f8ff;
+  stroke-width: 3;
+  opacity: 0;
+  filter: drop-shadow(0 0 8px #c9e8ff);
+  animation: digital-core-on 0.3s 2.68s forwards;
+}
+.projector-unit > circle:first-child {
+  fill: #02050a;
+  stroke: #8194a86b;
+  stroke-width: 3;
+}
+.projector-core {
+  opacity: 0;
+  filter: drop-shadow(0 0 16px #a8d5ff);
+  animation: digital-core-on 0.38s 2.38s forwards;
+}
+.projector-shutter {
+  fill: #010306;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.projector-shutter.upper {
+  animation: digital-shutter-upper 0.65s 1.9s cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+.projector-shutter.lower {
+  animation: digital-shutter-lower 0.65s 1.9s cubic-bezier(0.2, 0.8, 0.2, 1)
+    forwards;
+}
+.light-slice {
+  stroke-width: 3;
+  stroke-dasharray: 350;
+  stroke-dashoffset: 350;
+  opacity: 0.72;
+  animation: digital-signature-open 0.65s 2.35s forwards;
 }
 @keyframes headlight-scene-in {
   to {
@@ -495,57 +559,128 @@ header {
     transform: scale(0.7);
   }
   to {
-    opacity: 1;
+    opacity: 0.85;
     transform: scale(1);
   }
 }
-@keyframes headlight-signature {
+@keyframes digital-lamp-arrive {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+  }
   to {
-    stroke-dashoffset: 0;
+    opacity: 1;
+    filter: blur(0);
   }
 }
-@keyframes projector-on {
+@keyframes digital-headlight-blink {
   0% {
     opacity: 0;
   }
-  40% {
+  12% {
     opacity: 1;
   }
-  60% {
-    opacity: 0.5;
+  23% {
+    opacity: 0.05;
+  }
+  38% {
+    opacity: 0.9;
+  }
+  52% {
+    opacity: 0;
+  }
+  72% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes digital-signature-open {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 760;
+  }
+  to {
+    opacity: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes digital-shutter-upper {
+  to {
+    transform: translateY(-36px);
+    opacity: 0;
+  }
+}
+@keyframes digital-shutter-lower {
+  to {
+    transform: translateY(36px);
+    opacity: 0;
+  }
+}
+@keyframes digital-core-on {
+  0% {
+    opacity: 0;
+    filter: brightness(0.3);
+  }
+  42% {
+    opacity: 1;
+    filter: brightness(2.5);
+  }
+  62% {
+    opacity: 0.45;
   }
   100% {
     opacity: 1;
+    filter: brightness(1);
   }
 }
-@keyframes beam-on {
+@keyframes digital-pixel-on {
+  0% {
+    opacity: 0;
+    transform: scaleY(0.2);
+  }
+  60% {
+    opacity: 1;
+    transform: scaleY(1.12);
+  }
+  100% {
+    opacity: 0.82;
+    transform: scaleY(1);
+  }
+}
+@keyframes lamp-aura-open {
   from {
     opacity: 0;
-    transform: scaleX(0.7);
-    transform-origin: center;
+    transform: scale(0.7);
   }
   to {
-    opacity: 0.7;
-    transform: scaleX(1);
-  }
-}
-@keyframes lamp-glow-on {
-  to {
-    opacity: 0.8;
+    opacity: 0.18;
+    transform: scale(1);
   }
 }
 .headlight-scene.reduced {
-  opacity: 0.75;
+  opacity: 0.82;
   animation: none;
 }
-.headlight-scene.reduced .lamp-signature {
+.headlight-scene.reduced .digital-lamp,
+.headlight-scene.reduced .signature-trace,
+.headlight-scene.reduced .pixel-bank rect,
+.headlight-scene.reduced .lens-face,
+.headlight-scene.reduced .lens-cut,
+.headlight-scene.reduced .projector-core,
+.headlight-scene.reduced .light-slice {
+  opacity: 0.82;
   stroke-dashoffset: 0;
   animation: none;
 }
-.headlight-scene.reduced .projector,
-.headlight-scene.reduced .beam,
-.headlight-scene.reduced .lamp-glow {
-  opacity: 0.65;
+.headlight-scene.reduced .projector-shutter,
+.headlight-scene.reduced .signature-flash {
+  opacity: 0;
+  animation: none;
+}
+.headlight-scene.reduced .lamp-aura {
+  opacity: 0.14;
   animation: none;
 }
 .opening-photo {
