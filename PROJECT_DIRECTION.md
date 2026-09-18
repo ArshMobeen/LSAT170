@@ -69,3 +69,7 @@ Progress includes a focused versus unfocused daily bar chart with hover and keyb
 ## Iteration 2.4, approved September 18, 2026
 
 The study chart is a horizontally scrollable history spanning at least one year, with 2-day, 5-day, weekly, two-week, monthly and three-month zoom levels. Include earlier/later navigation, Last month and Today jumps, month markers, visible-date feedback, hover details and keyboard access. The user supplied https://www.youtube.com/watch?v=ZY6OTqnEZUg as an intro reference and specified the sequence around 0:43. That frame was inspected: a close black-glass lamp, sharp white perimeter signature and internal digital projectors. Recreate the mood and staged illumination in original SVG/CSS with two headlights, pulses, opening shutters and sequential projector light. Do not show the car body or grille.
+
+## Iteration 2.4.1, approved September 18, 2026
+
+Restore the opening from commit `5f9e6f3`: the split library photograph and simple Mercedes-Benz inspired three-pointed star. Remove the digital-headlight scene and its animation code. Keep the complete scrollable and zoomable progress timeline from iteration 2.4.

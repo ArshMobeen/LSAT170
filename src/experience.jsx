@@ -65,132 +65,28 @@ export function Opening({ remaining, prefs, onClose }) {
         animate={{ x: reduced ? "100%" : "84%" }}
         transition={{ delay: 0.6, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
       />
-      <div
-        className={`headlight-scene ${reduced ? "reduced" : ""}`}
-        aria-hidden="true"
-      >
-        <div className="headlight-haze" />
-        <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="lampGlass" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#17202a" />
-              <stop offset="0.36" stopColor="#05080d" />
-              <stop offset="1" stopColor="#000103" />
-            </linearGradient>
-            <radialGradient id="projectorGlass">
-              <stop offset="0" stopColor="#f9fdff" />
-              <stop offset="0.18" stopColor="#bddfff" />
-              <stop offset="0.5" stopColor="#263e56" />
-              <stop offset="0.72" stopColor="#050911" />
-              <stop offset="1" stopColor="#000" />
-            </radialGradient>
-            <linearGradient id="lensFace" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="#dff1ff" />
-              <stop offset="0.38" stopColor="#637f9e" />
-              <stop offset="0.62" stopColor="#0a111c" />
-              <stop offset="1" stopColor="#a9cce9" />
-            </linearGradient>
-            <filter
-              id="digitalGlow"
-              x="-200%"
-              y="-200%"
-              width="500%"
-              height="500%"
-            >
-              <feGaussianBlur stdDeviation="13" />
-            </filter>
-          </defs>
-          {["left", "right"].map((side) => (
-            <g
-              key={side}
-              className={`digital-lamp ${side}-lamp`}
-              transform={
-                side === "right"
-                  ? "translate(1440 100) scale(-0.87 0.87)"
-                  : "translate(0 100) scale(0.87)"
-              }
-            >
-              <ellipse
-                className="lamp-aura"
-                cx="350"
-                cy="478"
-                rx="330"
-                ry="176"
-              />
-              <path
-                className="lamp-housing"
-                d="M62 456C116 344 286 292 566 331C637 341 684 383 700 434L662 566C494 620 244 604 100 522C67 503 53 480 62 456Z"
-                fill="url(#lampGlass)"
-              />
-              <path
-                className="lamp-depth"
-                d="M101 466C158 379 302 341 570 370C620 375 653 394 672 424C558 406 431 417 318 451C223 480 164 516 128 534C93 513 84 489 101 466Z"
-              />
-              <path
-                className="signature-flash"
-                d="M661 401C539 352 319 338 174 395C118 417 95 459 119 495C149 540 276 558 431 531"
-              />
-              <path
-                className="signature-trace"
-                d="M661 401C539 352 319 338 174 395C118 417 95 459 119 495C149 540 276 558 431 531"
-              />
-              <g className="pixel-bank">
-                {[0, 1, 2, 3, 4, 5].map((pixel) => (
-                  <rect
-                    key={pixel}
-                    x={178 + pixel * 22}
-                    y={449 + (pixel % 2) * 5}
-                    width="13"
-                    height="35"
-                    rx="5"
-                  />
-                ))}
-              </g>
-              <g className="digital-lens">
-                <rect x="315" y="420" width="116" height="95" rx="23" />
-                <rect
-                  className="lens-face"
-                  x="331"
-                  y="436"
-                  width="84"
-                  height="63"
-                  rx="14"
-                  fill="url(#lensFace)"
-                />
-                <path className="lens-cut" d="M341 482L405 450" />
-              </g>
-              <g className="projector-unit">
-                <circle cx="535" cy="447" r="77" />
-                <circle
-                  className="projector-core"
-                  cx="535"
-                  cy="447"
-                  r="48"
-                  fill="url(#projectorGlass)"
-                />
-                <path
-                  className="projector-shutter upper"
-                  d="M490 447A45 45 0 0 1 580 447Z"
-                />
-                <path
-                  className="projector-shutter lower"
-                  d="M490 447A45 45 0 0 0 580 447Z"
-                />
-              </g>
-              <path
-                className="light-slice"
-                d="M153 517C254 552 360 557 458 523"
-              />
-            </g>
-          ))}
-        </svg>
-      </div>
       <motion.div
         className="opening-content"
         initial={{ opacity: 0, scale: 0.96 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: reduced ? 0 : 2.55, duration: 1.05 }}
+        transition={{ delay: 0.6, duration: 1.2 }}
       >
+        <div className="opening-emblem">
+          <svg viewBox="0 0 100 100" aria-label="Mercedes-Benz inspired star">
+            <circle
+              cx="50"
+              cy="50"
+              r="44"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            />
+            <path
+              d="M50 7L56 46L88 73L50 57L12 73L44 46Z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
         <p className="eyebrow">A LIFE WITH YOUR NAME ON IT</p>
         <h1>
           Welcome, <em>Angel Thukral.</em>

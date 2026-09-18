@@ -69,3 +69,12 @@ Public release: https://github.com/ArshMobeen/LSAT170/releases/tag/v2.2.1-mac-1 
 - Ten automated tests and the Vite production build pass. The isolated Electron smoke test passes against source and the packaged Windows payload, including chart zoom, restart persistence and guarded deletion.
 - Browser checks covered 2-day and 3-month zoom, month markers, date-preserving zoom and the completed headlight composition. No browser runtime errors were observed.
 - Local Windows portable: `release/Angels-170-2.4.0-Windows-x64.exe`, SHA-256 `8D048A1886C04CA5B7BCE929CCC6216EF1ADBE5316CED8692F2D08103B8F988C`.
+
+## Version 2.4.1
+
+- Restored `src/experience.jsx` and the opening styles in `src/v2.css` exactly to their state at commit `5f9e6f3`.
+- Removed the digital-headlight SVG, projector animation and all associated CSS while preserving the version 2.4 progress timeline.
+- The packaged smoke test requires the simple star emblem and verifies that the headlight scene is absent.
+- Ten automated tests and the Vite production build pass.
+- The packaged Windows x64 app passed the restart persistence smoke test, including chart zoom, study data, guarded deletion, journal data and paused timer recovery.
+- Local Windows portable: `release/Angels-170-2.4.1-Windows-x64.exe`, SHA-256 `7706080D53B92732B449362DABB02526F4B761239B402363033FC1B9539619A4`.

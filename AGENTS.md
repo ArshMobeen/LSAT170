@@ -19,3 +19,7 @@ Progress uses a persistent focused/unfocused daily bar chart with hover details,
 ## Iteration 2.4, approved September 18, 2026
 
 Progress history scrolls across months and supports 2-day, 5-day, weekly, two-week, monthly and three-month zoom. Keep navigation and hover/keyboard details accessible. The startup background shows only two close-up digital headlights, with a pulse, shutter-opening and perimeter-light sequence inspired by the user-supplied 0:43 reference. Do not show a grille or vehicle body. Package and verify Windows x64, Mac arm64 and Mac x64 for release.
+
+## Iteration 2.4.1, approved September 18, 2026
+
+The latest user direction supersedes the iteration 2.4 intro. Restore the pre-headlight opening from commit `5f9e6f3`, using the split library image and simple three-pointed star. Keep the zoomable progress timeline and all persistence behavior. Package and verify Windows x64, Mac arm64 and Mac x64.

@@ -1,8 +1,8 @@
-Angel's 170 2.4.0 is a complete desktop app for Angel Thukral on Windows, Apple Silicon Macs and Intel Macs.
+Angel's 170 2.4.1 is a complete desktop app for Angel Thukral on Windows, Apple Silicon Macs and Intel Macs.
+
+The opening has returned to its original restrained design: a split library photograph, simple silver three-pointed star, personalized welcome and countdown. The digital-headlight scene has been removed. The complete scrollable and zoomable study timeline from version 2.4.0 remains intact.
 
 The focused and unfocused study chart now scrolls through at least one year of daily history. It can show 2 days, 5 days, one week, two weeks, one month or three months at a time, with earlier/later navigation and direct Last month and Today controls. Month markers and a live visible-date label keep long timelines readable. Existing hover details, study context, session records and delete controls remain available.
-
-The welcome sequence now shows only two close-up digital headlights. Perimeter signatures blink and trace on, projector shutters open, and internal pixels illuminate before the personalized welcome resolves.
 
 The detailed table records the date, time logged, duration, focus type and context for every session. Time entries and practice scores have two-step delete controls.
 

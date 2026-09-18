@@ -1,5 +1,9 @@
 # Angel’s 170
 
+## Version 2.4.1
+
+The opening returns to the original restrained design from commit `5f9e6f3`: the split library photograph, simple silver three-pointed star, personalized welcome and countdown. The digital-headlight scene has been removed. The scrollable one-year study timeline and every zoom level from version 2.4.0 remain intact.
+
 ## Version 2.4.0
 
 Study history is now a scrollable timeline spanning at least one year. Zoom between 2 days, 5 days, one week, two weeks, one month and three months without losing the date you were viewing. Earlier and later controls, month markers, visible-date feedback, Last month and Today jumps make long-term patterns easy to revisit. Hover and keyboard details continue to show focused time, unfocused time and study context.
@@ -35,7 +39,7 @@ For the desktop app: `npm run desktop`. To build a Windows portable executable: 
 
 ## Features
 
-- Animated personalized welcome, three-pointed star and luxury headlight reveal, with skip and replay.
+- Animated personalized welcome and silver three-pointed star, with skip and replay.
 - Live countdown to November 14, 2026, defaulting to 8 AM device-local time. Set the actual appointment in Settings.
 - Focus stopwatch, manual focused/unfocused logs, daily goal, paired history chart, contextual session table and study-day totals.
 - Journals by date, tomorrow’s plan, wins, and practice score history.

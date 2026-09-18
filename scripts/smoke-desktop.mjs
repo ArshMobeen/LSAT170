@@ -13,8 +13,9 @@ async function launch() {
   app = await electron.launch({ executablePath, args, timeout: 60000 });
   const page = await app.firstWindow();
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.locator(".headlight-scene .digital-lamp").first().waitFor();
-  assert.equal(await page.locator(".headlight-scene .digital-lamp").count(), 2);
+  await page.locator(".opening-emblem").waitFor();
+  assert.equal(await page.locator(".opening-emblem svg").count(), 1);
+  assert.equal(await page.locator(".headlight-scene").count(), 0);
   await page.getByRole("button", { name: "Skip intro", exact: true }).click();
   await page.getByRole("button", { name: "Focus room", exact: true }).waitFor();
   return page;
@@ -106,7 +107,7 @@ try {
   });
   assert.deepEqual(errors, []);
   console.log(
-    "PASS: two-headlight intro, scrollable chart zoom, persistent table data, guarded deletions, journal, focus intention and paused timer.",
+    "PASS: classic star intro, scrollable chart zoom, persistent table data, guarded deletions, journal, focus intention and paused timer.",
   );
 } finally {
   await app?.close();
